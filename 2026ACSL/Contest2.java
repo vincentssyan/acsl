@@ -1,26 +1,43 @@
-import java.io.*;
-import java.util.Scanner;
-import java.math.*;
-import java.security.*;
-import java.text.*;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.function.*;
-import java.util.regex.*;
-import java.util.stream.*;
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
-
+import java.io.*;;
 class Result {
+
     public static String verifyPlate(String plate, String day) {
-        Scanner scanner = new Scanner(System.in);
+        // Valid plate: 
+        // 1. 7 <= length <=8 AND
+        // 2. letterCount>0 & numberCounter>0  AND
+        // 3.  symbolCount = 0 except "." AND 
+        // 4. plate[0] is letter AND
+        // 5. dotCount = 1 &U plate[1]='.'
+        Boolean valid = (plate!=null) && 
+                        (plate.length()<=8 && plate.length()>=7) && 
+                        (Character.isLetter(plate.charAt(0)) && plate.charAt(1)=='.'); 
+        if(!valid) 
+            return "Invalid";
 
         int letterCount = 0;
         int numberCount = 0;
+        int symbolsCount = 0;
         String lettersFound = "";
         String numbersFound = "";
+        for (int i = 0; i < plate.length(); i++) {
+            if(i==1)
+                continue; // skip "."
+            char c = plate.charAt(i);
+            if (Character.isLetter(c)) {
+                letterCount++;
+                lettersFound += c + " ";
+            } else if (Character.isDigit(c)) {
+                numberCount++;
+                numbersFound += c + " ";
+            } else {
+                symbolsCount++;
+            }
+        }
+        valid = letterCount>0 && numberCount>0 && symbolsCount==0; 
+        if(!valid) 
+            return "Invalid";
 
-        // Check repeated 6, 8, 9 → lucky
+        // LUCKY RULE (repeated 6,8,9)
         int count6 = 0, count8 = 0, count9 = 0;
         for (int i = 0; i < plate.length(); i++) {
             char c = plate.charAt(i);
@@ -34,63 +51,69 @@ class Result {
         if (count6 > 1 || count8 > 1 || count9 > 1)
             return "lucky";
 
-        // Count letters and numbers and build strings
-        for (int i = 0; i < plate.length(); i++) {
-            char c = plate.charAt(i);
-            if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
-                letterCount++;
-                lettersFound += c + " ";
-            } else if (c >= '0' && c <= '9') {
-                numberCount++;
-                numbersFound += c + " ";
-            }
-        }
-
-        if (letterCount <= 0 || numberCount <= 1)
-            return "invalid";
-
-        // Check 3 consecutive numbers or letters → fortunate
+        // FORTUNATE RULE (3 consecutive numbers or letters)
         for (int i = 0; i < plate.length() - 2; i++) {
-            char c1 = plate.charAt(i), c2 = plate.charAt(i + 1), c3 = plate.charAt(i + 2);
-            if (c1 >= '0' && c1 <= '9' && c2 == c1 + 1 && c3 == c2 + 1)
+            char c1 = plate.charAt(i);
+            char c2 = plate.charAt(i + 1);
+            char c3 = plate.charAt(i + 2);
+            // number sequence
+            if (Character.isDigit(c1) && c2 == c1 + 1 && c3 == c2 + 1)
                 return "fortunate";
-            if (((c1 >= 'a' && c1 <= 'z') || (c1 >= 'A' && c1 <= 'Z')) &&
-                    ((c2 >= 'a' && c2 <= 'z') || (c2 >= 'A' && c2 <= 'Z')) &&
-                    ((c3 >= 'a' && c3 <= 'z') || (c3 >= 'A' && c3 <= 'Z'))) {
-                char l1 = Character.toLowerCase(c1), l2 = Character.toLowerCase(c2), l3 = Character.toLowerCase(c3);
+            // letter sequence
+            if (Character.isLetter(c1) && Character.isLetter(c2) && Character.isLetter(c3)) {
+                char l1 = Character.toLowerCase(c1);
+                char l2 = Character.toLowerCase(c2);
+                char l3 = Character.toLowerCase(c3);
                 if (l2 == l1 + 1 && l3 == l2 + 1)
                     return "fortunate";
             }
         }
 
         int total = letterCount + numberCount;
-
+        // BLUE (has to have 7 digits) RESTRICTED(If the lst digits of blue is a odd number)
         if (total == 8 || total == 6) {
             char lastChar = plate.charAt(plate.length() - 1);
-            if ((lastChar >= '0' && lastChar <= '9' && (lastChar - '0') % 2 != 0) ||
-                    ((lastChar >= 'a' && lastChar <= 'z') || (lastChar >= 'A' && lastChar <= 'Z')) &&
-                            (Character.toLowerCase(lastChar) - 'a') % 2 != 0) {
-                return "restricted";
+            if (Character.isDigit(lastChar)) {
+                int digit = lastChar - '0';
+                if (digit % 2 != 0)
+                    return "restricted";
+            } else if (Character.isLetter(lastChar)) {
+                int pos = Character.toLowerCase(lastChar) - 'a';
+                if (pos % 2 != 0)
+                    return "restricted";
             }
             return "blue";
-        } else if (total == 7) {
-            return "green";
         }
+
+        // GREEN (There are 8 digits)
+        if (total == 7)
+            return "green";
 
         return "Letters (" + letterCount + "): " + lettersFound + " | Numbers (" + numberCount + "): " + numbersFound;
     }
 }
 
+
 public class Contest2 {
+
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
-        String plate = bufferedReader.readLine();
-        String day = bufferedReader.readLine();
+
+        String day = "Monday";
+
+        // test cases
+        // String plate = "F.53A12";
+        // String plate = "P.GG123";
+        // String plate = "P.GA513";
+        // String plate = "";
+        // String plate = "afasdfw 2@#$!@#$!$%@#%!a55a4faafa";
+        // String plate = "    ";
+        // String plate = "1.ABCD5";
+        // String plate = "A.AAAAA1";
+
+        String plate = "A.BB1234111111111";
+
         String result = Result.verifyPlate(plate, day);
-        bufferedWriter.write(result);
-        bufferedWriter.newLine();
-        bufferedReader.close();
-        bufferedWriter.close();
+
+        System.out.println(result);
     }
 }
