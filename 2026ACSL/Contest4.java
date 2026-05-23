@@ -8,6 +8,7 @@ import java.util.function.*;
 import java.util.regex.*;
 import java.util.stream.*;
 import static java.util.stream.Collectors.joining;
+
 class Result {
     public static String fillPuzzle(int n, String numbers) {
         String[] arr = numbers.trim().split("\\s+");
@@ -31,25 +32,34 @@ class Result {
                     if (grid[i][j] != 0)
                         continue;
                     Set<Integer> possible = new LinkedHashSet<>();
-                    if (j > 0 && grid[i][j - 1] != 0) {
-                        int v = grid[i][j - 1];
-                        if (v - 1 > 0) possible.add(v - 1);
-                        if (v + 1 <= n * n) possible.add(v + 1);
+                    if (i > 0 && grid[i - 1][j] != 0) {
+                        int v = grid[i - 1][j];
+                        if (v - 1 > 0)
+                            possible.add(v - 1);
+                        if (v + 1 <= n * n)
+                            possible.add(v + 1);
+                        ;
                     }
                     if (j < n - 1 && grid[i][j + 1] != 0) {
                         int v = grid[i][j + 1];
-                        if (v - 1 > 0) possible.add(v - 1);
-                        if (v + 1 == n * n) possible.add(v + 1);
+                        if (v - 1 > 0)
+                            possible.add(v - 1);
+                        if (v + 1 == n * n)
+                            possible.add(v + 1);
                     }
-                    if (i > 0 && grid[i - 1][j] != 0) {
-                        int v = grid[i - 1][j];
-                        if (v - 1 > 0) possible.add(v - 1);
-                        if (v + 1 <= n * n) possible.add(v + 1);
+                    if (j > 0 && grid[i][j - 1] != 0) {
+                        int v = grid[i][j - 1];
+                        if (v - 1 > 0)
+                            possible.add(v - 1);
+                        if (v + 1 <= n * n)
+                            possible.add(v + 1);
                     }
                     if (i < n - 1 && grid[i + 1][j] != 0) {
                         int v = grid[i + 1][j];
-                        if (v - 1 > 0) possible.add(v - 1);
-                        if (v + 1 <= n * n) possible.add(v + 1);
+                        if (v - 1 > 0)
+                            possible.add(v - 1);
+                        if (v + 1 <= n * n)
+                            possible.add(v + 1);
                     }
                     for (int val : possible) {
                         if (!used[val]) {
@@ -70,6 +80,7 @@ class Result {
         return sb.toString().trim();
     }
 }
+
 public class Contest4 {
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
