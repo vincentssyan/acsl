@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class backforth {
+public class Backandforth {
 
     // Stores all possible final milk amounts in barn 1
     static HashSet<Integer> ans = new HashSet<>();
@@ -12,7 +12,7 @@ public class backforth {
     // 2 = Thursday
     // 3 = Friday
     static void dfs(int day, int milk1, int milk2,)
-                    ArrayList<Integer> b1,
+                    (ArrayList<Integer> b1,
                     ArrayList<Integer> b2) {
 
         // After Friday's transfer, record the result
