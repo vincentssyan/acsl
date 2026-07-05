@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.*;
 public class Guesstheanimal {
+    //https://usaco.org/index.php?page=viewproblem2&cpid=893
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String input = br.readLine();
