@@ -152,7 +152,6 @@ public class Threelog {
             l++;
             r--;
         }
-
         return true;
     }
 }
