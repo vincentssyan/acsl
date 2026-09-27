@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Angrycow {
+public class USACO2016JanuaryContestBronzeProblem2AngryCows {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 

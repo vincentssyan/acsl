@@ -9,7 +9,7 @@ public class Threelog {
         char ch;
 
         Rect(int w, int h, char ch) {
-            this.w = w;
+            this.w = w;ß
             this.h = h;
             this.ch = ch;
         }

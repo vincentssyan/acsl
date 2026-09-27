@@ -1,7 +1,7 @@
-public import java.io.*;
+import java.io.*;
 import java.util.*;
 
-public class Lineup {
+public class USAC2019DecemberContestBronzeProblem3LivestockLineup {
     // List of cows in alphabetical order
     static String[] cows = {
             "Beatrice", "Belinda", "Bella", "Bessie",
@@ -70,6 +70,6 @@ public class Lineup {
 
         return true;
     }
-} {
+} 
     
-}
+

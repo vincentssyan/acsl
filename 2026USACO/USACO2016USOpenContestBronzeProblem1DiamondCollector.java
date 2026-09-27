@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Diamond {
+public class USACO2016USOpenContestBronzeProblem1DiamondCollector {
     public static void main(String[] args) throws Exception {
         // Read input
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

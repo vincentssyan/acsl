@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+    @SuppressWarnings("unchecked")
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -9,15 +10,18 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        ArrayList<Integer>[] adj = new ArrayList[N + 1];
+        List<Integer>[] adj = new ArrayList[N + 1];
+
         for (int i = 1; i <= N; i++) {
             adj[i] = new ArrayList<>();
         }
 
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
+
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
+
             adj[a].add(b);
             adj[b].add(a);
         }
@@ -25,7 +29,7 @@ public class Main {
         int[] color = new int[N + 1];
 
         for (int i = 1; i <= N; i++) {
-            boolean[] used = new boolean[5]; // colors 1..4
+            boolean[] used = new boolean[5];
 
             for (int neighbor : adj[i]) {
                 if (color[neighbor] != 0) {
@@ -41,11 +45,8 @@ public class Main {
             }
         }
 
-        StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= N; i++) {
-            sb.append(color[i]);
+            System.out.print(color[i]);
         }
-
-        System.out.println(sb.toString());
     }
 }
