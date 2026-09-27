@@ -1,7 +1,7 @@
 import java.util.*;
 //https://codeforces.com/problemset/problem/581/D
 
-public class Threelog {
+public class codeforcesround322threelog {
 
     // Rectangle class
     static class Rect {

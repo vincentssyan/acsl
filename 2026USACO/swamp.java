@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class swamp {
+public class USACO2020FebruaryContestBronzeProblem3SwapitySwap {
     static void reverse(int[] arr, int l, int r) {
         while (l < r) {
             int t = arr[l];
