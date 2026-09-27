@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class practice1 {
+public class USACO2023DecemberContestBronzeProblem1CandyCaneFeast {
 
     static class SegmentTree {
         int n;
